@@ -1,12 +1,171 @@
-quiz
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Quiz do meu amor</title>
+    <style>
+        :root {
+            color-scheme: light;
+            font-family: Arial, sans-serif;
+        }
+
+        body {
+            background: #fdf2f8;
+            color: #4a044e;
+            margin: 0;
+            padding: 24px;
+        }
+
+        .quiz {
+            max-width: 700px;
+            margin: 0 auto;
+            background: #fff;
+            border-radius: 16px;
+            padding: 24px;
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
+        }
+
+        h1 {
+            color: #9d174d;
+            text-align: center;
+            margin-top: 0;
+        }
+
+        h2 {
+            font-size: 1.1rem;
+            margin-top: 24px;
+        }
+
+        label {
+            display: block;
+            margin: 8px 0;
+            cursor: pointer;
+        }
+
+        input[type="radio"] {
+            margin-right: 10px;
+        }
+
+        button {
+            background: #ec4899;
+            color: #fff;
+            border: 0;
+            border-radius: 10px;
+            padding: 12px 20px;
+            font-size: 1rem;
+            cursor: pointer;
+            margin-top: 16px;
+        }
+
+        button:hover {
+            background: #db2777;
+        }
+
+        .resultado {
+            display: none;
+            margin-top: 24px;
+            padding: 16px;
+            border-radius: 12px;
+            background: #fdf2f8;
+            border: 1px solid #f9a8d4;
+        }
+    </style>
 </head>
 <body>
-    
+    <main class="quiz">
+        <h1>Quiz</h1>
+        <p>Amor, este é um quiz simples para testar seus conhecimentos sobre mim!</p>
+
+        <form id="quizForm">
+            <h2>Questão 1 - Qual é a minha cor favorita?</h2>
+            <label><input type="radio" name="q1" value="a"> A) Azul</label>
+            <label><input type="radio" name="q1" value="b"> B) Roxo</label>
+            <label><input type="radio" name="q1" value="c"> C) Preto</label>
+
+            <h2>Questão 2 - Qual aplicativo eu mais uso?</h2>
+            <label><input type="radio" name="q2" value="a"> A) Snapchat</label>
+            <label><input type="radio" name="q2" value="b"> B) Instagram</label>
+            <label><input type="radio" name="q2" value="c"> C) TikTok</label>
+
+            <h2>Questão 3 - Qual é a minha comida favorita?</h2>
+            <label><input type="radio" name="q3" value="a"> A) Lasanha</label>
+            <label><input type="radio" name="q3" value="b"> B) Strogonoff</label>
+            <label><input type="radio" name="q3" value="c"> C) Parmegiana</label>
+
+            <h2>Questão 4 - Qual dos apelidos abaixo você mais gosta?</h2>
+            <label><input type="radio" name="q4" value="a"> A) Princesa</label>
+            <label><input type="radio" name="q4" value="b"> B) Meu bem</label>
+            <label><input type="radio" name="q4" value="c"> C) Neném</label>
+            <label><input type="radio" name="q4" value="d"> D) Todos acima</label>
+
+            <h2>Questão 5 - O que eu prefiro?</h2>
+            <label><input type="radio" name="q5" value="a"> A) Ficar uma semana sem celular</label>
+            <label><input type="radio" name="q5" value="b"> B) Ficar careca</label>
+
+            <h2>Questão 6 - Quantas vezes eu já viajei de avião?</h2>
+            <label><input type="radio" name="q6" value="a"> A) 2</label>
+            <label><input type="radio" name="q6" value="b"> B) 3</label>
+            <label><input type="radio" name="q6" value="c"> C) 4</label>
+
+            <h2>Questão 7 - Se eu pudesse ser um animal, qual eu escolheria?</h2>
+            <label><input type="radio" name="q7" value="a"> A) Koala</label>
+            <label><input type="radio" name="q7" value="b"> B) Cachorro</label>
+            <label><input type="radio" name="q7" value="c"> C) Gato</label>
+
+            <h2>Questão 8 - Qual é a marca de carro dos meus sonhos?</h2>
+            <label><input type="radio" name="q8" value="a"> A) Ferrari</label>
+            <label><input type="radio" name="q8" value="b"> B) Audi</label>
+            <label><input type="radio" name="q8" value="c"> C) BMW</label>
+
+            <h2>Questão 9 - O que eu gosto mais de fazer?</h2>
+            <label><input type="radio" name="q9" value="a"> A) Falar muito</label>
+            <label><input type="radio" name="q9" value="b"> B) Rir muito</label>
+            <label><input type="radio" name="q9" value="c"> C) Os dois</label>
+
+            <h2>Questão 10 - Quem ama mais?</h2>
+            <label><input type="radio" name="q10" value="a"> A) Manoela</label>
+            <label><input type="radio" name="q10" value="b"> B) Alternativa A</label>
+            <label><input type="radio" name="q10" value="c"> C) Alternativa B</label>
+
+            <button type="submit">Enviar respostas</button>
+        </form>
+
+        <section id="resultado" class="resultado" aria-live="polite"></section>
+    </main>
+
+    <script>
+        const form = document.getElementById('quizForm');
+        const resultado = document.getElementById('resultado');
+        const respostasCorretas = {
+            q1: 'a', q2: 'c', q3: 'b', q4: 'd', q5: 'a',
+            q6: 'b', q7: 'a', q8: 'c', q9: 'c', q10: 'c'
+        };
+
+        form.addEventListener('submit', (event) => {
+            event.preventDefault();
+            let acertos = 0;
+
+            for (const [pergunta, respostaCorreta] of Object.entries(respostasCorretas)) {
+                const resposta = form.querySelector(`input[name="${pergunta}"]:checked`);
+                if (!resposta) {
+                    alert('Você precisa responder todas as perguntas antes de enviar!');
+                    return;
+                }
+                if (resposta.value === respostaCorreta) acertos++;
+            }
+
+            const totalPerguntas = Object.keys(respostasCorretas).length;
+            const percentual = Math.round((acertos / totalPerguntas) * 100);
+            resultado.innerHTML = `
+                <h2>Resultado do quiz</h2>
+                <p>Você acertou <strong>${acertos}</strong> de <strong>${totalPerguntas}</strong> perguntas.</p>
+                <p>Seu desempenho: <strong>${percentual}%</strong>.</p>
+                <p>${percentual === 100 ? 'Perfeito! Você conhece tudo sobre mim 😍' : 'Quase lá! Tente novamente para melhorar sua pontuação 💙'}</p>
+            `;
+            resultado.style.display = 'block';
+            resultado.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        });
+    </script>
 </body>
 </html>
